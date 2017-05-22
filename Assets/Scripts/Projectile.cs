@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour {
     {
         this.shootDirection = shootRay.direction;
         this.transform.position = shootRay.origin;
+        rotateInShootDirection();
     }
 
     void OnCollisionEnter (Collision col)
@@ -28,6 +29,12 @@ public class Projectile : MonoBehaviour {
             enemy.TakeDamage(damage);
         }
         Destroy(this.gameObject);
+    }
+
+    void rotateInShootDirection()
+    {
+        Vector3 newRotation = Vector3.RotateTowards(transform.forward, shootDirection, 0.01f, 0.0f);
+        transform.rotation = Quaternion.LookRotation(newRotation);
     }
 
 }
